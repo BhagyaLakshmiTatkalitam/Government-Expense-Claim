@@ -97,7 +97,7 @@ sap.ui.define([
                 return;
             }
         
-            const oFilter = new sap.ui.model.Filter("employeeID", sap.ui.model.FilterOperator.EQ, sEmpID);
+            const oFilter = new Filter("employeeID", FilterOperator.EQ, sEmpID);
             const oBinding = oModel.bindList("/Employees", undefined, undefined, [oFilter]);
         
             oBinding.requestContexts(0, 1).then(aContexts => {
@@ -128,7 +128,7 @@ sap.ui.define([
         const oView = this.getView();
         const oModel = oView.getModel(); 
     
-        const oFilter = new sap.ui.model.Filter("claimType", sap.ui.model.FilterOperator.EQ, sClaimType);
+        const oFilter = new Filter("claimType", FilterOperator.EQ, sClaimType);
         const oBinding = oModel.bindList("/ClaimDetails", undefined, undefined, [oFilter]);
     
         oBinding.requestContexts(0, 1).then(aContexts => {
