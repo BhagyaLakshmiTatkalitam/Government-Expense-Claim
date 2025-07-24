@@ -219,24 +219,23 @@
 				<subSections>
 					<ObjectPageSubSection title="{i18n>sectionRemarks}" titleUppercase="false">
 						<blocks>
-						<m:HBox justifyContent="Start" alignItems="Start" fitContainer="true">
-						<m:VBox width="40%">
-						<m:Label text="{i18n>managerRemarks}" ></m:Label>
-						<m:TextArea id="employee" value="" rows="2" width="100%" />
-						</m:VBox>
-						
-						<m:VBox width="40%" class="sapUiMediumMarginBegin">
-						<m:Label text="{i18n>managerManagerRemarks}" ></m:Label>
-						<m:TextArea id="employee2" value="" rows="2" width="100%" />
-						</m:VBox>
-						
-						<m:VBox width="40%" class="sapUiMediumMarginBegin">
-						<m:Label text="{i18n>financeRemarks}" ></m:Label>
-						<m:TextArea id="employee1" value="" rows="2" width="100%" />
-						</m:VBox>
-						 
+    <m:HBox wrap="Wrap" justifyContent="Start" alignItems="Start">
+    <m:VBox class="sapUiSmallMargin" width="30%">
+        <m:Label text="{i18n>managerRemarks}" />
+        <m:TextArea id="employee" value="" rows="2" width="100%" />
+    </m:VBox>
 
-						</m:HBox>
+    <m:VBox class="sapUiSmallMargin" width="30%">
+        <m:Label text="{i18n>managerManagerRemarks}" />
+        <m:TextArea id="employee2" value="" rows="2" width="100%" />
+    </m:VBox>
+
+    <m:VBox class="sapUiSmallMargin" width="30%">
+        <m:Label text="{i18n>financeRemarks}" />
+        <m:TextArea id="employee1" value="" rows="2" width="100%" />
+    </m:VBox>
+</m:HBox>
+
 						</blocks>
 					</ObjectPageSubSection>
 					</subSections>
