@@ -1,0 +1,11 @@
+ID,employeeID,employeeName,status,payGrade,action,claim_claimID
+7f19e85a-4c5e-42d4-93e5-d1a3e4e2af01,E001,John Doe,Approved,P3,Added,
+b8e4d938-4975-4d6b-9b29-64df7c4c934e,E002,Jane Smith,Pending,P2,Added,
+29b8a9f1-c6df-4a4a-b4b4-94a6e8fc39d9,E003,Ravi Kumar,Approved,P4,Removed,
+e192a2f2-56c9-4fd3-bec5-4bbca5c4517d,E004,Anjali Mehta,Rejected,P1,Added,
+f5aa83f2-892d-421d-a8c6-e4c8e3de6c7e,E005,Surya Narayan,Pending,P3,Added,
+9c6ab10e-c29d-4724-b1a2-5a95d7b10e0b,E006,Nisha Reddy,Approved,P2,Added,
+cd85b3a0-9cf1-4ad3-897f-9ae2a2b63275,E007,Karthik Iyer,Pending,P1,Added,
+ae7b23e9-8a55-4d89-8a26-2d582bd23dd2,E008,Neha Sharma,Approved,P4,Added,
+70b7899b-5e09-41cb-9084-496132bfaec4,E009,Rahul Singh,Rejected,P2,Removed,
+4c7f5df0-8ed7-4c0a-9f02-2f7a4a1e5c8d,E010,Divya Patil,Approved,P3,Added,

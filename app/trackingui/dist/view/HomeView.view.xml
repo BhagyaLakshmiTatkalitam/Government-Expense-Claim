@@ -1,0 +1,136 @@
+<mvc:View controllerName="com.cy.track.trackingui.controller.HomeView"
+        xmlns:mvc="sap.ui.core.mvc"
+		xmlns:core="sap.ui.core"
+		xmlns="sap.m"
+		xmlns:f="sap.f"
+		xmlns:fb="sap.ui.comp.filterbar"
+		xmlns:svm="sap.ui.comp.smartvariants">
+		<f:DynamicPage headerExpanded="{/headerExpanded}">
+			
+			<f:header>
+				<f:DynamicPageHeader>
+					<f:content>
+						<fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+							<fb:filterGroupItems>
+								<fb:FilterGroupItem name="Claim ID" label="Claim ID" groupName="Group1" visibleInFilterBar="true">
+									<fb:control>
+										<MultiComboBox
+											name="Claim ID"
+											selectionChange=".onSelectionChange"
+											items="{
+												path: '',
+												templateShareable: true
+											}"
+										>
+											<core:Item key="{key}" text="{name}"/>
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="Status" label="{i18n>filterGroupStatus}" groupName="Group1" visibleInFilterBar="true">
+									<fb:control>
+										<MultiComboBox
+											name="Status"
+											selectionChange=".onSelectionChange"
+											items="{
+												path: '',
+												templateShareable: true
+											}"
+										>
+											<core:Item key="{key}" text="{name}"/>
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="Created Date" label="{i18n>filterGroupCreatedDate}" groupName="Group1" visibleInFilterBar="true">
+									<fb:control>
+										<MultiComboBox
+											name="Created Date"
+											selectionChange=".onSelectionChange"
+											items="{
+												path: '',
+												templateShareable: true
+											}"
+										>
+											<core:Item key="{key}" text="{name}"/>
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+                                <fb:FilterGroupItem name="Requester ID" label="filterGroupRequesterId" groupName="Group1" visibleInFilterBar="true">
+									<fb:control>
+										<MultiComboBox
+											name="Requester ID"
+											selectionChange=".onSelectionChange"
+											items="{
+												path: '',
+												templateShareable: true
+											}"
+										>
+											<core:Item key="{key}" text="{name}"/>
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+							</fb:filterGroupItems>
+						</fb:FilterBar>
+					</f:content>
+				</f:DynamicPageHeader>
+			</f:header>
+			<f:content>
+				
+                <Table
+				id="productsTable"
+				mode="SingleSelectMaster"
+				itemPress="onListItemPress"
+				inset="false"
+				items="{
+					path: ''
+					
+				}"
+				class="sapFDynamicPageAlignContent"
+				width="auto">
+				<headerToolbar>
+					<OverflowToolbar>
+						<ToolbarSpacer/>
+						<Button text="{i18n>buttonNewClaim}" press="onAdd" type="Emphasized"/>
+						<Button text="{i18n>buttonExport}" icon="sap-icon://excel-attachment" type="Transparent" press="onExport"/>
+					</OverflowToolbar>
+				</headerToolbar>
+				<columns>
+						<Column demandPopin="true">
+							<Text text="{i18n>columnClaimId}"/>
+						</Column>
+						<Column demandPopin="true">
+							<Text text="{i18n>columnCreatedOn}"/>
+						</Column>
+						<Column demandPopin="true">
+							<Text text="{i18n>columnRequesterId}"/>
+						</Column>
+                        <Column demandPopin="true">
+							<Text text="{i18n>columnClaimType}"/>
+						</Column>
+						<Column demandPopin="true">
+							<Text text="{i18n>columnTotalAmount}"/>
+						</Column>
+                        <Column demandPopin="true">
+							<Text text="{i18n>columnNoOfEmployees}"/>
+						</Column>
+						<Column demandPopin="true">
+							<Text text="{i18n>filterGroupStatus}"/>
+						</Column>
+					</columns>
+				<items>
+					<ColumnListItem type="Navigation">
+						<cells>
+							<ObjectIdentifier title="" text="" />
+							<!-- <ObjectNumber
+									number="{
+										parts:[{path:'products>Price'},{path:'products>CurrencyCode'}],
+										type: 'sap.ui.model.type.Currency',
+										formatOptions: {showMeasure: false}
+									}"
+									unit="{products>CurrencyCode}" /> -->
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+			</f:content>
+		</f:DynamicPage>
+</mvc:View>

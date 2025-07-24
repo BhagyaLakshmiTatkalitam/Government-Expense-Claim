@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/mvc/Controller"],e=>{"use strict";return e.extend("com.cy.track.trackingui.controller.HomeView",{onInit(){},onAdd:function(){var e=this.getOwnerComponent().getRouter();e.navTo("RouteDetailView")}})});
+//# sourceMappingURL=HomeView.controller.js.map
