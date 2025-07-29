@@ -148,9 +148,60 @@ sap.ui.define([
             console.error("Error fetching claim details:", err);
             sap.m.MessageBox.error("Error while retrieving claim details.");
         });
-    }
-    
-              
+    },
+    onCalculate: function () {
+      const oView = this.getView();
+      const oExpenseModel = oView.getModel("ExpenseClaimModel");
+      
+      // Get claim type from dropdown
+      const oClaimTypeCombo = oView.byId("claimType");
+      const sClaimType = oClaimTypeCombo.getSelectedItem() ? 
+                        oClaimTypeCombo.getSelectedItem().getText() : "";
+      
+      // Get claim fees from input field
+      const oClaimFeesInput = oView.byId("claimFees");
+      const sClaimFees = oClaimFeesInput.getValue();
+      const fClaimFees = parseFloat(sClaimFees) || 0;
+      
+      // Get employees from local model and count valid entries
+      const aEmployees = oExpenseModel.getProperty("/localEmployees") || [];
+      const iEmployeeCount = aEmployees.filter(emp => 
+          emp.employeeID && emp.employeeID.trim() !== ""
+      ).length;
+      
+      // Calculate total amount
+      const fTotalAmount = fClaimFees * iEmployeeCount;
+      
+      // Validate required fields
+      if (!sClaimType) {
+          sap.m.MessageBox.error("Please select a Claim Type first.");
+          return;
+      }
+      
+      if (fClaimFees <= 0) {
+          sap.m.MessageBox.error("Please enter valid Claim Fees.");
+          return;
+      }
+      
+      if (iEmployeeCount === 0) {
+          sap.m.MessageBox.error("Please add at least one employee with valid Employee ID.");
+          return;
+      }
+      
+      //  claim summary data
+      const oClaimSummary = {
+          claimType: sClaimType,
+          empCount: iEmployeeCount,
+          amount: fTotalAmount.toFixed(2)
+      };
+      
+      // Set the claim summary in the model
+      oExpenseModel.setProperty("/claimSummary", [oClaimSummary]);
+
+      oExpenseModel.updateBindings(true);
+      sap.m.MessageToast.show(`Calculation completed: ${iEmployeeCount} employees, Total: ${fTotalAmount.toFixed(2)}`);
+  }
+            
     
   
     

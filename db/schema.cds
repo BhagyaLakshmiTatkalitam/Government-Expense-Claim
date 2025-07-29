@@ -1,9 +1,10 @@
 namespace gov.track.db;
-
-entity Claims {
-    key claimID               : String;
+using {managed} from '@sap/cds/common';
+entity Claims:managed {
+    key claimID               : UUID;
         createdOn             : Timestamp;
         requesterID           : String;
+        requesterName:String;
         claimType             : String;
         totalAmount           : Decimal(10, 2);
         noOfEmployees         : Integer;

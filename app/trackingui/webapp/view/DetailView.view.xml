@@ -127,11 +127,21 @@
     </m:headerToolbar>
 
     <m:columns>
-        <m:Column demandPopin="true" ><m:Text text="{i18n>columnEmployeeId}"/></m:Column>
-        <m:Column demandPopin="true"><m:Text text="{i18n>columnEmployeeName}"/></m:Column>
-        <m:Column demandPopin="true"><m:Text text="{i18n>columnStatus}"/></m:Column>
-        <m:Column demandPopin="true"><m:Text text="{i18n>columnPayGrade}"/></m:Column>
-        <m:Column demandPopin="true"><m:Text text="{i18n>columnAction}"/></m:Column>
+        <m:Column demandPopin="true" minScreenWidth="Tablet" hAlign="Begin" >
+        <m:Text text="{i18n>columnEmployeeId}"/>
+        </m:Column>
+        <m:Column demandPopin="true" minScreenWidth="Tablet" hAlign="Begin" >
+        <m:Text text="{i18n>columnEmployeeName}"/>
+        </m:Column>
+        <m:Column demandPopin="true" minScreenWidth="Tablet" hAlign="Begin">
+        <m:Text text="{i18n>columnStatus}"/>
+        </m:Column>
+        <m:Column demandPopin="true" minScreenWidth="Tablet" hAlign="Begin" >
+        <m:Text text="{i18n>columnPayGrade}"/>
+        </m:Column>
+        <m:Column demandPopin="true" minScreenWidth="Tablet" hAlign="Begin" >
+        <m:Text text="{i18n>columnAction}"/>
+        </m:Column>
     </m:columns>
 
     <m:items>
@@ -173,13 +183,14 @@
 				<subSections>
 					<ObjectPageSubSection title="{i18n>sectionClaimSummary}" mode="Expanded" id="Section3" titleUppercase="false">
 						<blocks>
-						
+				
 							<ObjectPageLazyLoader stashed="true" id="Section3stashed">
 								<m:VBox class="sapUiSmallMargin">
 									<m:Table
 				id="ClaimSummaryTable"
 				mode="SingleSelectMaster"
 				itemPress="onListItemPress"
+        items="{ExpenseClaimModel>/claimSummary}"
 				inset="false"
 				class="sapFDynamicPageAlignContent"
 				width="auto">
@@ -197,11 +208,11 @@
 						</m:Column>
 					</m:columns>
 				<m:items>
-					<m:ColumnListItem type="Navigation">
+					<m:ColumnListItem type="Navigation" >
 						<m:cells>
-							<m:Input value="{ExpenseClaimModel>claimType}" />
-							<m:Input value="{ExpenseClaimModel>empCount}" />
-							<m:Input value="{ExpenseClaimModel>amount}" />
+							<m:Text text="{ExpenseClaimModel>claimType}" />
+            <m:Text text="{ExpenseClaimModel>empCount}" />
+            <m:Text text="{ExpenseClaimModel>amount}" />
 						</m:cells>
 					</m:ColumnListItem>
 				</m:items>

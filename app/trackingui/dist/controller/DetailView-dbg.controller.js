@@ -39,7 +39,7 @@ sap.ui.define([
         const oRowContext = oInput.getBindingContext("ExpenseClaimModel"); // from local model
         const oView = this.getView();
         const oODataModel = oView.getModel();
-        const oLocalModel = oView.getModel("ExpenseClaimModel"); // local JSON model
+        const oLocalModel = oView.getModel("ExpenseClaimModel"); 
   
         
         const oFilter = new Filter("employeeID", FilterOperator.EQ, sEmployeeID);
@@ -59,7 +59,7 @@ sap.ui.define([
                 return;
             }
   
-            const sRowPath = oRowContext.getPath(); // e.g., "/localEmployees/0"
+            const sRowPath = oRowContext.getPath(); // /localEmployees/0"
             const sIndex = sRowPath.split("/").pop();
             const iIndex = parseInt(sIndex, 10);
   
@@ -97,7 +97,7 @@ sap.ui.define([
                 return;
             }
         
-            const oFilter = new sap.ui.model.Filter("employeeID", sap.ui.model.FilterOperator.EQ, sEmpID);
+            const oFilter = new Filter("employeeID", FilterOperator.EQ, sEmpID);
             const oBinding = oModel.bindList("/Employees", undefined, undefined, [oFilter]);
         
             oBinding.requestContexts(0, 1).then(aContexts => {
@@ -126,9 +126,9 @@ sap.ui.define([
         }
     
         const oView = this.getView();
-        const oModel = oView.getModel(); // OData model
+        const oModel = oView.getModel(); 
     
-        const oFilter = new sap.ui.model.Filter("claimType", sap.ui.model.FilterOperator.EQ, sClaimType);
+        const oFilter = new Filter("claimType", FilterOperator.EQ, sClaimType);
         const oBinding = oModel.bindList("/ClaimDetails", undefined, undefined, [oFilter]);
     
         oBinding.requestContexts(0, 1).then(aContexts => {

@@ -15,11 +15,7 @@
 				<heading>
 					<m:Title text="{i18n>claimIdTitle}" />
 				</heading>
-
-				<!-- <snappedTitleOnMobile>
-					<m:Title text="ObjectPage with LazyLoading without the use of Blocks"/>
-				</snappedTitleOnMobile> -->
-                <expandedContent>
+        <expandedContent>
 					<m:Text text="{i18n>claimStatusDraft}"/>
 				</expandedContent>
 
@@ -131,11 +127,21 @@
     </m:headerToolbar>
 
     <m:columns>
-        <m:Column demandPopin="true" ><m:Text text="{i18n>columnEmployeeId}"/></m:Column>
-        <m:Column demandPopin="true"><m:Text text="{i18n>columnEmployeeName}"/></m:Column>
-        <m:Column demandPopin="true"><m:Text text="{i18n>columnStatus}"/></m:Column>
-        <m:Column demandPopin="true"><m:Text text="{i18n>columnPayGrade}"/></m:Column>
-        <m:Column demandPopin="true"><m:Text text="{i18n>columnAction}"/></m:Column>
+        <m:Column demandPopin="true" minScreenWidth="Tablet" hAlign="Begin" >
+        <m:Text text="{i18n>columnEmployeeId}"/>
+        </m:Column>
+        <m:Column demandPopin="true" minScreenWidth="Tablet" hAlign="Begin" >
+        <m:Text text="{i18n>columnEmployeeName}"/>
+        </m:Column>
+        <m:Column demandPopin="true" minScreenWidth="Tablet" hAlign="Begin">
+        <m:Text text="{i18n>columnStatus}"/>
+        </m:Column>
+        <m:Column demandPopin="true" minScreenWidth="Tablet" hAlign="Begin" >
+        <m:Text text="{i18n>columnPayGrade}"/>
+        </m:Column>
+        <m:Column demandPopin="true" minScreenWidth="Tablet" hAlign="Begin" >
+        <m:Text text="{i18n>columnAction}"/>
+        </m:Column>
     </m:columns>
 
     <m:items>
@@ -223,25 +229,23 @@
 				<subSections>
 					<ObjectPageSubSection title="{i18n>sectionRemarks}" titleUppercase="false">
 						<blocks>
-						<m:HBox justifyContent="Start" alignItems="Start" fitContainer="true">
-						<m:VBox width="40%">
-						<m:Label text="{i18n>managerRemarks}" ></m:Label>
-						<m:TextArea id="employee" value="" rows="2" width="100%" />
-						</m:VBox>
-						
-						<m:VBox width="40%" class="sapUiMediumMarginBegin">
-						<m:Label text="{i18n>managerManagerRemarks}" ></m:Label>
-						<m:TextArea id="employee2" value="" rows="2" width="100%" />
-						</m:VBox>
-						
-						<m:VBox width="40%" class="sapUiMediumMarginBegin">
-						<m:Label text="{i18n>financeRemarks}" ></m:Label>
-						<m:TextArea id="employee1" value="" rows="2" width="100%" />
-						</m:VBox>
-						 
+						<m:HBox wrap="Wrap" justifyContent="Start" alignItems="Start">
+    <m:VBox class="sapUiSmallMargin" width="30%">
+        <m:Label text="{i18n>managerRemarks}" />
+        <m:TextArea id="employee" value="" rows="2" width="100%" />
+    </m:VBox>
 
-						</m:HBox>
-						</blocks>
+    <m:VBox class="sapUiSmallMargin" width="30%">
+        <m:Label text="{i18n>managerManagerRemarks}" />
+        <m:TextArea id="employee2" value="" rows="2" width="100%" />
+    </m:VBox>
+
+    <m:VBox class="sapUiSmallMargin" width="30%">
+        <m:Label text="{i18n>financeRemarks}" />
+        <m:TextArea id="employee1" value="" rows="2" width="100%" />
+    </m:VBox>
+</m:HBox>
+</blocks>
 					</ObjectPageSubSection>
 					</subSections>
 					</ObjectPageSection>
