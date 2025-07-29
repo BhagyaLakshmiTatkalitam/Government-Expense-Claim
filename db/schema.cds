@@ -4,6 +4,7 @@ entity Claims:managed {
     key claimID               : UUID;
         createdOn             : Timestamp;
         requesterID           : String;
+        
         requesterName:String;
         claimType             : String;
         totalAmount           : Decimal(10, 2);
