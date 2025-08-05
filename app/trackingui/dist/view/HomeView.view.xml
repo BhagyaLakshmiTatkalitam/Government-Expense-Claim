@@ -54,7 +54,7 @@
 										</MultiComboBox>
 									</fb:control>
 								</fb:FilterGroupItem>
-                                <fb:FilterGroupItem name="Requester ID" label="filterGroupRequesterId" groupName="Group1" visibleInFilterBar="true">
+                                <fb:FilterGroupItem name="Requester ID" label="Requester ID" groupName="Group1" visibleInFilterBar="true">
 									<fb:control>
 										<MultiComboBox
 											name="Requester ID"
@@ -81,7 +81,7 @@
 				itemPress="onListItemPress"
 				inset="false"
 				items="{
-					path: ''
+					path: '/Claims'
 					
 				}"
 				class="sapFDynamicPageAlignContent"
@@ -117,16 +117,17 @@
 						</Column>
 					</columns>
 				<items>
-					<ColumnListItem type="Navigation">
+					<ColumnListItem type="Navigation" >
 						<cells>
-							<ObjectIdentifier title="" text="" />
-							<!-- <ObjectNumber
-									number="{
-										parts:[{path:'products>Price'},{path:'products>CurrencyCode'}],
-										type: 'sap.ui.model.type.Currency',
-										formatOptions: {showMeasure: false}
-									}"
-									unit="{products>CurrencyCode}" /> -->
+							<ObjectIdentifier title="" text="{claimID}" />
+							<Text text="{createdAt}"></Text>
+							<Text text="{requesterID}"></Text>
+							<Text text="{claimType}"></Text>
+							<Text text="{totalAmount}"></Text>
+							<Text text="{noOfEmployees}"></Text>
+							<Text text="{status}"></Text>
+
+							
 						</cells>
 					</ColumnListItem>
 				</items>

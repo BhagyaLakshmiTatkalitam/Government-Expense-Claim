@@ -6,5 +6,6 @@ service GovernmentTrackService{
     entity Remarks as projection on db.Remarks;
     entity Attachments as projection on db.Attachments;
     entity ClaimSummary as projection on db.ClaimSummary;
-    entity ClaimDetails as projection on db.ClaimDetails
+    entity ClaimDetails as projection on db.ClaimDetails;
+    entity EmployeeDetails as projection on db.EmployeeDetails;
 }

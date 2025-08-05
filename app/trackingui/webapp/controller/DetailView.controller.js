@@ -11,9 +11,22 @@ sap.ui.define([
         this.getOwnerComponent().getRouter().getRoute("RouteDetailView").attachPatternMatched(this._ExpenseDetailMatched, this);
         
       },
-      _ExpenseDetailMatched:function(){
-        this.getOwnerComponent().getModel("ExpenseClaimModel").setProperty("/employeeName","Bhagya lakshmi")
-      },
+      _ExpenseDetailMatched:function(oEvent){
+        //this.getOwnerComponent().getModel("ExpenseClaimModel").setProperty("/employeeName","Bhagya lakshmi")
+        
+            const oLocalModel = this.getOwnerComponent().getModel("ExpenseClaimModel");
+            const oEditable = oLocalModel.getProperty("/editable");
+            const oView = this.getView();
+        
+            oView.byId("employeeNumber").setEditable(oEditable);
+            oView.byId("claimType").setEditable(oEditable);
+            oView.byId("claimCategory").setEditable(oEditable);
+            oView.byId("claimFees").setEditable(oEditable);
+            oView.byId("validityDate").setEnabled(oEditable);
+        
+            oView.byId("SimpleFormDisplayColumn_twoGroups234").setEditable(oEditable);
+            
+        },
       onAdd: function () {
         const oModel = this.getView().getModel("ExpenseClaimModel");
         const aEmployees = oModel.getProperty("/localEmployees") || [];
@@ -200,9 +213,184 @@ sap.ui.define([
 
       oExpenseModel.updateBindings(true);
       sap.m.MessageToast.show(`Calculation completed: ${iEmployeeCount} employees, Total: ${fTotalAmount.toFixed(2)}`);
-  }
-            
-    
+  },
+
+//   onSubmit: async function () {
+//     const oView = this.getView();
+//     const oModel = oView.getModel(); // Main OData V4 model
+//     const oLocalModel = this.getView().getModel("ExpenseClaimModel");
+
+//     // Gather input values
+//     const sEmployeeID = oView.byId("employeeNumber").getValue();
+//     const sEmployeeName = oView.byId("employeeName").getValue();
+//     const sClaimType = oView.byId("claimType").getSelectedKey();
+//     const sClaimCategory = oView.byId("claimCategory").getValue();
+//     const fClaimFees = parseFloat(oView.byId("claimFees").getValue());
+//     let myDate = new Date(oView.byId("validityDate").getDateValue());
+//     let formattedDate = new Intl.DateTimeFormat('en-CA').format(myDate);
+
+//     const sManagerRemarks = oView.byId("employee").getValue();
+//     const sManagerManagerRemarks = oView.byId("employee2").getValue();
+//     const sFinanceRemarks = oView.byId("employee1").getValue();
+
+//     const aEmployees = oLocalModel.getProperty("/localEmployees") || [];
+//     const aSummary = oLocalModel.getProperty("/claimSummary") || [];
+
+//     if (!sEmployeeID || !sClaimType || !sClaimCategory || !fClaimFees || !formattedDate) {
+//         sap.m.MessageBox.warning("Please fill all required fields.");
+//         return;
+//     }
+
+//     // 2. Create Claim
+//     const oClaimPayload = {
+//         requesterID: sEmployeeID,
+//         requesterName: sEmployeeName,
+//         claimType: sClaimType,
+//         claimCategory: sClaimCategory,
+//         claimFees: fClaimFees,
+//         procedureValidityDate: formattedDate,
+//         totalAmount: aSummary[0]?.amount || 0,
+//         noOfEmployees: aSummary[0]?.empCount || aEmployees.length,
+//         status: "Submitted"
+//     };
+
+//     try {
+//         const oClaimBinding = oModel.bindList("/Claims");
+//         const oCreatedClaim = await oClaimBinding.create(oClaimPayload).requestObject();
+//         const sClaimID = oCreatedClaim.claimID;
+
+//         //remarks
+//         const oRemarksBinding = oModel.bindList("/Remarks");
+//         await oRemarksBinding.create({
+//             claim_claimID: sClaimID,
+//             managerRemarks: sManagerRemarks,
+//             managerManagerRemarks: sManagerManagerRemarks,
+//             financeRemarks: sFinanceRemarks
+//         }).requestObject();
+
+//         //  Create Employees
+//         for (let emp of aEmployees) {
+//             if (emp.employeeID) { // Only create for valid employee IDs
+//                 const oEmpDetailsBinding = oModel.bindList("/EmployeeDetails");
+//                 await oEmpDetailsBinding.create({
+//                     claim_claimID: sClaimID,
+//                     employeeIDDetail: emp.employeeID,
+//                     employeeNameDetail: emp.employeeName,
+//                     statusDetail: emp.status,
+//                     payGradeDetail: emp.payGrade,
+//                     actionDetail: emp.action
+//                 }).requestObject();
+//             }
+//         }
+
+//         // Create Claim Summary
+//         if (aSummary.length > 0) {
+//             const oSummaryBinding = oModel.bindList("/ClaimSummary");
+//             await oSummaryBinding.create({
+//                 claim_claimID: sClaimID,
+//                 claimType: aSummary[0].claimType,
+//                 empCount: aSummary[0].empCount,
+//                 amount: aSummary[0].amount
+//             }).requestObject();
+//         }
+
+//         //  Navigate to Home
+//         sap.m.MessageToast.show("Claim submitted successfully.");
+//         this.getView().getModel().refresh(); 
+//         const oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+//         oRouter.navTo("RouteHomeView"); 
+
+//     } catch (oError) {
+//         console.error("Submission failed:", oError);
+//         sap.m.MessageBox.error("Failed to submit claim. Please try again.");
+//     }
+// }
+onCompleteLater: async function () {
+    await this._submitClaim("Draft");
+},
+onSubmit: async function () {
+    await this._submitClaim("Submitted");
+},
+
+_submitClaim: async function (status) {
+    const oView = this.getView();
+    const oModel = oView.getModel();
+    const oLocalModel = oView.getModel("ExpenseClaimModel");
+
+    const sEmployeeID = oView.byId("employeeNumber").getValue();
+    const sEmployeeName = oView.byId("employeeName").getValue();
+    const sClaimType = oView.byId("claimType").getSelectedKey();
+    const sClaimCategory = oView.byId("claimCategory").getValue();
+    const fClaimFees = parseFloat(oView.byId("claimFees").getValue()) || 0;
+    const formattedDate = new Intl.DateTimeFormat('en-CA').format(oView.byId("validityDate").getDateValue());
+
+    const sManagerRemarks = oView.byId("employee").getValue();
+    const sManagerManagerRemarks = oView.byId("employee2").getValue();
+    const sFinanceRemarks = oView.byId("employee1").getValue();
+
+    const aEmployees = oLocalModel.getProperty("/localEmployees") || [];
+    const aSummary = oLocalModel.getProperty("/claimSummary") || [];
+
+    if (!sEmployeeID || !sClaimType || !sClaimCategory || !fClaimFees || !formattedDate) {
+        return sap.m.MessageBox.warning("Please fill all required fields.");
+    }
+
+    try {
+        const oClaimPayload = {
+            requesterID: sEmployeeID,
+            requesterName: sEmployeeName,
+            claimType: sClaimType,
+            claimCategory: sClaimCategory,
+            claimFees: fClaimFees,
+            procedureValidityDate: formattedDate,
+            totalAmount: aSummary[0]?.amount || 0,
+            noOfEmployees: aSummary[0]?.empCount || aEmployees.length,
+            status
+        };
+
+        const oCreatedClaim = await oModel.bindList("/Claims").create(oClaimPayload).requestObject();
+        const sClaimID = oCreatedClaim.claimID;
+
+        await oModel.bindList("/Remarks").create({
+            claim_claimID: sClaimID,
+            managerRemarks: sManagerRemarks,
+            managerManagerRemarks: sManagerManagerRemarks,
+            financeRemarks: sFinanceRemarks
+        }).requestObject();
+
+        for (let emp of aEmployees) {
+            if (emp.employeeID) {
+                await oModel.bindList("/EmployeeDetails").create({
+                    claim_claimID: sClaimID,
+                    employeeIDDetail: emp.employeeID,
+                    employeeNameDetail: emp.employeeName,
+                    statusDetail: emp.status,
+                    payGradeDetail: emp.payGrade,
+                    actionDetail: emp.action
+                }).requestObject();
+            }
+        }
+
+        if (aSummary.length) {
+            await oModel.bindList("/ClaimSummary").create({
+                claim_claimID: sClaimID,
+                claimType: aSummary[0].claimType,
+                empCount: aSummary[0].empCount,
+                amount: aSummary[0].amount
+            }).requestObject();
+        }
+
+        sap.m.MessageToast.show(status === "Submitted" ? "Claim submitted." : "Draft saved.");
+        oModel.refresh();
+        this.getOwnerComponent().getRouter().navTo("RouteHomeView");
+
+    } catch (err) {
+        console.error("Save failed:", err);
+        sap.m.MessageBox.error("Error occurred during submission.");
+    }
+}
+
+   
   
     
     });

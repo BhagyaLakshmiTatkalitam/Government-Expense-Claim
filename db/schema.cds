@@ -13,8 +13,8 @@ entity Claims:managed {
         claimCategory         : String;
         claimFees             : Decimal(10, 2);
         procedureValidityDate : Date;
-        employees             : Association to many Employees
-                                    on employees.claim = $self;
+        employeeDetails             : Association to many EmployeeDetails
+                                    on employeeDetails.claim = $self;
         summaries             : Association to ClaimSummary;
         remarks               : Association to Remarks;
         attachments           : Association to many Attachments
@@ -28,9 +28,10 @@ entity Employees {
         status       : String;
         payGrade     : String;
         action       : String;
-        claim        : Association to Claims;
+        
 
 }
+
 
 entity Remarks {
     key ID                    : UUID;
@@ -63,4 +64,15 @@ entity ClaimDetails {
     claimFees:Integer;
     procedureValidityDate:Date;
     
+}
+entity EmployeeDetails{
+    key ID           : UUID;
+        employeeIDDetail   : String;
+        employeeNameDetail : String;
+        statusDetail       : String;
+        payGradeDetail     : String;
+        actionDetail      : String;
+        claim        : Association to Claims;
+
+
 }

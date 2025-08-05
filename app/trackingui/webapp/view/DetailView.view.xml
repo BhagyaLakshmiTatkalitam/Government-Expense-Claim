@@ -56,6 +56,7 @@
     submit=".onEmployeeIdSubmit"
     liveChange=".onClearEmployeeName"
     required="true"
+    value="{ExpenseClaimModel>/employeeID}"
 />
 
 <m:Label text="{i18n>employeeName}" required="true"/>
@@ -63,6 +64,7 @@
     id="employeeName"
     editable="false"
     required="true"
+    value="{ExpenseClaimModel>/employeeName}"
 />
     <!-- 📋 Claim Details -->
     <core:Title text="{i18n>claimDetailsTitle}" />
@@ -79,18 +81,19 @@
     placeholder="Select Claim Type"
     required="true"
     showSecondaryValues="false"
+    selectedKey="{ExpenseClaimModel>/claimType}"
 >
     <core:Item key="{claimType}" text="{claimType}" />
 </m:ComboBox>
 
     <m:Label text="{i18n>claimCategory}" required="true"/>
-    <m:Input id="claimCategory" width="auto" required="true"/>
+    <m:Input id="claimCategory" width="auto" required="true" value="{ExpenseClaimModel>/claimCategory}"/>
 
     <m:Label text="{i18n>claimFees}" required="true"/>
-    <m:Input id="claimFees"  width="auto" required="true"/>
+    <m:Input id="claimFees"  width="auto" required="true" value="{ExpenseClaimModel>/claimFees}"/>
 
     <m:Label text="{i18n>procedureValidityDate}" required="true"/>
-    <m:DatePicker id="validityDate" displayFormat="yyyy-MM-dd" width="auto" required="true"/>
+    <m:DatePicker id="validityDate" displayFormat="yyyy-MM-dd" width="auto" required="true" />
 
   </f:content>
 </f:SimpleForm>

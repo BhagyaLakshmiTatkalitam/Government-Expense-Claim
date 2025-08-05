@@ -78,12 +78,12 @@
                 <Table
 				id="productsTable"
 				mode="SingleSelectMaster"
-				itemPress="onListItemPress"
 				inset="false"
 				items="{
 					path: '/Claims'
 					
 				}"
+				itemPress="onListItemPress"
 				class="sapFDynamicPageAlignContent"
 				width="auto">
 				<headerToolbar>
@@ -117,7 +117,7 @@
 						</Column>
 					</columns>
 				<items>
-					<ColumnListItem type="Navigation">
+					<ColumnListItem type="Navigation" >
 						<cells>
 							<ObjectIdentifier title="" text="{claimID}" />
 							<Text text="{createdAt}"></Text>
